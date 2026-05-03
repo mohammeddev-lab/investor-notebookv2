@@ -1,0 +1,281 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║           مذكرة المستثمر - WIREFRAME-BASED UI IMPLEMENTATION             ║
+║                                                                            ║
+║               Converting Wireframe Designs to Working Web UI               ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+WIREFRAME ANALYSIS
+═════════════════════════════════════════════════════════════════════════════
+
+Image 1 & 3: New Page - Type Details Entry
+  ✅ Header "New" at top
+  ✅ Row of 4 boxes at top:
+     - Small sidebar box (left)
+     - 3 type selection cards
+     - Double border on rightmost when selected
+  ✅ Large image preview box (right side)
+  ✅ Form fields stacked below:
+     - Title field
+     - Description field
+     - Amount field (with △ icon)
+     - Problem field (with △ icon)
+     - Solution field (with △ icon)
+  ✅ Action buttons (Edit, Add)
+  ✅ Notes section (horizontal lines)
+  ✅ Helper text at bottom
+  ✅ Save/Cancel buttons
+
+Image 2: Landing & New Page Layout
+  ✅ Landing page:
+     - Two buttons centered: "New" and "Old"
+     - Minimal border layout
+  ✅ New page:
+     - Similar header and type cards
+     - Shows "آخر نوع تم فتحه" (Last type opened)
+     - Shows "آخر نوع تم تعديله" (Last type edited)
+
+UI STRUCTURE TO BUILD
+═════════════════════════════════════════════════════════════════════════════
+
+1. LANDING PAGE (/)
+   └─ Centered container
+      ├─ "جديد" (New) button
+      └─ "القديم" (Old) button
+
+2. NEW PAGE (/new)
+   └─ Header: "جديد"
+   ├─ Type cards row (4 items)
+   │  ├─ Sidebar box
+   │  ├─ Type Card 1 (عقارات)
+   │  ├─ Type Card 2 (أسهم)
+   │  └─ Type Card 3 (مشاريع)
+   ├─ "Last type opened" section
+   └─ "Last type edited" section
+
+3. DETAILS PAGE (/new/[id])
+   ├─ Header with back button: "جديد"
+   ├─ Type cards row (same as above)
+   ├─ Image preview box (large, right side)
+   ├─ Form area:
+   │  ├─ Title input
+   │  ├─ Description input
+   │  ├─ Amount input (with triangle icon)
+   │  ├─ Problem input (with triangle icon)
+   │  ├─ Solution input (with triangle icon)
+   │  ├─ Edit button
+   │  ├─ Notes section (3 horizontal lines)
+   │  ├─ Helper text
+   │  └─ Save/Cancel buttons
+   └─ Footer text
+
+4. OLD PAGE (/old)
+   ├─ Header: "السجلات القديمة"
+   ├─ List of records
+   └─ "Add new" button
+
+DESIGN PRINCIPLES
+═════════════════════════════════════════════════════════════════════════════
+
+✅ Wireframe Fidelity:
+   - Minimal styling
+   - Thin borders (1px gray)
+   - Simple white backgrounds
+   - No heavy shadows or effects
+   - Keep element sizes relative to wireframe
+
+✅ Responsive:
+   - Stack on mobile
+   - Side-by-side on desktop
+   - Touch-friendly sizes
+
+✅ RTL Arabic:
+   - All text right-aligned
+   - Text in Arabic
+   - Proper RTL direction
+
+✅ Minimalist:
+   - No colors except gray/white
+   - Clean spacing
+   - Simple typography
+
+TECHNICAL IMPLEMENTATION
+═════════════════════════════════════════════════════════════════════════════
+
+Build Script: build-wireframe-ui.js
+  Creates:
+    ✅ app/globals.css         Wireframe styles
+    ✅ app/layout.tsx          Root layout
+    ✅ app/page.tsx            Landing page
+    ✅ app/new/page.tsx        Type selection
+    ✅ app/new/[id]/page.tsx   Details/entry
+    ✅ app/old/page.tsx        Old records
+    ✅ app/api/types/route.ts  API
+    ✅ app/api/records/route.ts API
+    ✅ lib/db.ts              Database
+    ✅ components/Navigation.tsx Component
+
+Database:
+  ✅ SQLite (better-sqlite3)
+  ✅ 2 tables: types, records
+  ✅ Auto-initialization
+  ✅ 3 demo types
+
+Styling Approach:
+  ✅ Tailwind CSS with custom wireframe classes
+  ✅ .wireframe-box - basic bordered box
+  ✅ .wireframe-input - form input styling
+  ✅ .wireframe-button - button styling
+  ✅ All with minimal, clean appearance
+
+QUICK START STEPS
+═════════════════════════════════════════════════════════════════════════════
+
+1. npm install
+   → Installs all dependencies
+
+2. node build-wireframe-ui.js
+   → Generates all pages, components, and API routes
+
+3. npm run dev
+   → Starts development server
+
+4. Open http://localhost:3000
+   → Landing page with buttons
+
+USER FLOWS
+═════════════════════════════════════════════════════════════════════════════
+
+FLOW 1: Add New Investment
+  ┌─ Landing Page
+  ├─ Click "جديد" (New)
+  ├─ Type Selection Page (shows available types)
+  ├─ Click on a type (e.g., عقارات)
+  ├─ Type Details Page
+  ├─ Fill in form fields
+  ├─ Click "حفظ" (Save)
+  └─ Record saved
+
+FLOW 2: View Old Records
+  ┌─ Landing Page
+  ├─ Click "القديم" (Old)
+  ├─ Old Records Page
+  ├─ See list of previous entries
+  └─ Can click "Add New" to add another
+
+COMPONENTS & PAGES MAPPING
+═════════════════════════════════════════════════════════════════════════════
+
+App Structure:
+  app/
+  ├── page.tsx              [Landing]      Route: /
+  ├── new/
+  │   ├── page.tsx          [Type Select]  Route: /new
+  │   └── [id]/page.tsx     [Details]      Route: /new/[id]
+  └── old/
+      └── page.tsx          [Records]      Route: /old
+
+Styling Classes:
+  .wireframe-box        Main bordered containers
+  .wireframe-card       Card elements
+  .wireframe-input      Form input fields
+  .wireframe-button     Buttons
+  .header-bar          Page headers
+  .sidebar-box         Left sidebar
+  .type-card           Type selection cards
+  .notes-section       Notes area
+  .helper-text         Bottom helper text
+
+DATABASE SCHEMA
+═════════════════════════════════════════════════════════════════════════════
+
+Types Table:
+  - id (PK)
+  - name (عقارات, أسهم, مشاريع)
+  - image_url
+  - created_at
+
+Records Table:
+  - id (PK)
+  - type_id (FK)
+  - title
+  - description
+  - amount
+  - problem
+  - solution
+  - notes
+  - created_at
+
+VISUAL MOCKUP SUMMARY
+═════════════════════════════════════════════════════════════════════════════
+
+Landing Page:
+┌─────────────────────┐
+│                     │
+│    ┌────────────┐   │
+│    │   جديد     │   │
+│    └────────────┘   │
+│                     │
+│    ┌────────────┐   │
+│    │   القديم   │   │
+│    └────────────┘   │
+│                     │
+└─────────────────────┘
+
+New/Details Page:
+┌──────────────────────────────┐
+│          جديد                 │
+├──────────────────────────────┤
+│ ┌─┐ ┌──┐ ┌──┐ ┌──────────┐  │
+│ │ │ │  │ │  │ │  Image   │  │
+│ └─┘ └──┘ └──┘ │  Box     │  │
+├──────────────────┴──────────┤
+│ ┌────────────────────────┐  │
+│ │ Title Input            │  │
+│ ├────────────────────────┤  │
+│ │ Description Input      │  │
+│ ├────────────────────────┤  │
+│ │ Amount Input       △   │  │
+│ ├────────────────────────┤  │
+│ │ Problem Input      △   │  │
+│ ├────────────────────────┤  │
+│ │ Solution Input     △   │  │
+│ ├──────────────┬─────────┤  │
+│ │  Edit        │ Add  +  │  │
+│ ├────────────────────────┤  │
+│ │ Notes:                 │  │
+│ │ ─────────────────────  │  │
+│ │ ─────────────────────  │  │
+│ │ ─────────────────────  │  │
+│ ├────────────────────────┤  │
+│ │  Helper Text here      │  │
+│ └────────────────────────┘  │
+└──────────────────────────────┘
+
+NEXT STEPS
+═════════════════════════════════════════════════════════════════════════════
+
+1. Run: node build-wireframe-ui.js
+2. Run: npm install
+3. Run: npm run dev
+4. Open: http://localhost:3000
+5. Test each page:
+   - Landing (/ )
+   - New (/new)
+   - Details (/new/type-1, etc.)
+   - Old (/old)
+6. Verify UI matches wireframes
+7. Test form submission
+8. Check database storage
+
+═════════════════════════════════════════════════════════════════════════════
+
+Status: ✅ READY TO BUILD
+Script: build-wireframe-ui.js
+Output: Complete working web app matching wireframes
+
+Run now:
+  npm install && node build-wireframe-ui.js && npm run dev
+
+═════════════════════════════════════════════════════════════════════════════

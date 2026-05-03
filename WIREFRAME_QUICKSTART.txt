@@ -1,0 +1,276 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    WIREFRAME UI - BUILD & RUN GUIDE
+═══════════════════════════════════════════════════════════════════════════════
+
+This is a wireframe-based implementation of the Investment Notebook app.
+
+WHAT'S INCLUDED
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Landing Page        - Two buttons: جديد, القديم
+✅ New Page            - Type selection with preview boxes
+✅ Details Page        - Form entry with image preview
+✅ Old Page            - List of saved records
+✅ Database            - SQLite auto-initialization
+✅ API Routes          - CRUD operations
+✅ RTL Arabic Support  - Full right-to-left layout
+
+QUICK START (3 STEPS)
+═══════════════════════════════════════════════════════════════════════════════
+
+Step 1: Install Dependencies
+────────────────────────────
+  cd d:\investor-notebook
+  npm install
+
+Step 2: Build the UI
+────────────────────────────
+  node build-wireframe-ui.js
+
+Step 3: Start Development Server
+────────────────────────────
+  npm run dev
+
+Then open: http://localhost:3000
+
+PAGES & ROUTES
+═══════════════════════════════════════════════════════════════════════════════
+
+Landing Page:       http://localhost:3000/
+New Types:          http://localhost:3000/new
+Type Details:       http://localhost:3000/new/type-1 (or type-2, type-3)
+Old Records:        http://localhost:3000/old
+
+FEATURES
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Type Selection
+   - 3 default types: عقارات, أسهم, مشاريع
+   - Visual preview boxes
+   - Click to select and enter details
+
+✅ Form Entry
+   - Title field
+   - Description field
+   - Amount field (with visual indicator)
+   - Problem field
+   - Solution field
+   - Notes area (multiple lines)
+   - Save/Cancel buttons
+
+✅ Data Storage
+   - SQLite database
+   - Auto-save functionality
+   - View saved records in Old page
+
+✅ Design Features
+   - Minimal wireframe style
+   - Thin gray borders
+   - Clean white background
+   - Full RTL Arabic support
+   - Responsive layout
+
+FILES CREATED
+═══════════════════════════════════════════════════════════════════════════════
+
+Pages:
+  app/page.tsx                Landing page (/)
+  app/new/page.tsx            Type selection (/new)
+  app/new/[id]/page.tsx       Type details (/new/[id])
+  app/old/page.tsx            Old records (/old)
+
+Styles:
+  app/globals.css             All styling
+
+Database:
+  lib/db.ts                   SQLite setup
+
+API:
+  app/api/types/route.ts      Types API
+  app/api/records/route.ts    Records API
+
+Components:
+  components/Navigation.tsx   Navigation
+
+Configuration:
+  app/layout.tsx              Root layout
+  tailwind.config.ts          Tailwind config
+  next.config.js              Next.js config
+  package.json                Dependencies
+
+Build:
+  build-wireframe-ui.js       Build script
+
+TESTING CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Run Development Server
+   npm run dev
+   Check for no errors
+
+✅ Test Landing Page
+   Open http://localhost:3000
+   See two buttons: جديد, القديم
+   Buttons should be clickable
+
+✅ Test New Page
+   Click "جديد" button
+   See type selection boxes at top
+   See "Last opened" and "Last edited" sections
+
+✅ Test Type Details
+   Click on a type card
+   See large image preview
+   See form fields
+   Fill in form and click Save
+
+✅ Test Old Page
+   Go back to landing
+   Click "القديم"
+   See list of saved records
+
+✅ Test RTL
+   Verify all text is right-aligned
+   Check form fields are right-aligned
+
+DATABASE
+═══════════════════════════════════════════════════════════════════════════════
+
+Location: data/notebook.db (created at first run)
+
+Tables:
+  types     - Investment categories
+  records   - Saved investment records
+
+Auto-initialized with:
+  - 3 types (عقارات, أسهم, مشاريع)
+  - Empty records table
+
+CUSTOMIZATION
+═══════════════════════════════════════════════════════════════════════════════
+
+Edit Colors:
+  app/globals.css
+  Change border colors, backgrounds in CSS classes
+
+Edit Type Names:
+  app/new/page.tsx
+  Modify typeNames object
+
+Edit Form Fields:
+  app/new/[id]/page.tsx
+  Add/remove form fields in the JSX
+
+Edit Database Schema:
+  lib/db.ts
+  Modify CREATE TABLE statements
+
+PRODUCTION BUILD
+═══════════════════════════════════════════════════════════════════════════════
+
+To build for production:
+  npm run build
+  npm start
+
+To create a Docker image:
+  docker build -t notebook .
+  docker run -p 3000:3000 notebook
+
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+"Module not found" error:
+  → npm install
+  → Delete node_modules and .next
+  → npm install again
+
+"Port 3000 in use" error:
+  → npm run dev -- -p 3001
+  → Use different port
+
+"Database locked" error:
+  → Delete data/notebook.db
+  → Restart npm run dev
+
+"Text not RTL" issue:
+  → Check HTML has dir="rtl"
+  → Check CSS has direction: rtl
+
+BUILD SCRIPT OUTPUT
+═══════════════════════════════════════════════════════════════════════════════
+
+When you run: node build-wireframe-ui.js
+
+It creates:
+  ✅ All page components
+  ✅ Global CSS styles
+  ✅ Database setup file
+  ✅ API route files
+  ✅ Navigation component
+  ✅ Directory structure
+
+TECH STACK
+═══════════════════════════════════════════════════════════════════════════════
+
+Framework:   Next.js 14
+UI Library:  React 18
+Styling:     Tailwind CSS 3
+Database:    SQLite 3 (better-sqlite3)
+Language:    TypeScript/JavaScript
+Direction:   RTL Arabic
+
+COMMANDS
+═══════════════════════════════════════════════════════════════════════════════
+
+npm install          Install dependencies
+npm run dev          Start dev server (http://localhost:3000)
+npm run build        Create production build
+npm start            Run production build
+npm run lint         Check code quality
+
+DIRECTORY STRUCTURE (After build)
+═══════════════════════════════════════════════════════════════════════════════
+
+investor-notebook/
+├── app/
+│   ├── api/               API routes
+│   ├── new/               New page and details
+│   ├── old/               Old records page
+│   ├── globals.css        Styles
+│   ├── layout.tsx         Root layout
+│   └── page.tsx           Landing page
+├── components/            Components
+├── lib/                   Database
+├── public/                Static files
+├── data/                  Database file (created at runtime)
+├── node_modules/          Dependencies
+├── build-wireframe-ui.js  Build script
+├── tailwind.config.ts     Tailwind config
+├── next.config.js         Next config
+└── package.json           Dependencies
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 READY TO START!
+
+Run these three commands:
+
+  1. npm install
+  2. node build-wireframe-ui.js
+  3. npm run dev
+
+Then open: http://localhost:3000
+
+═══════════════════════════════════════════════════════════════════════════════
+
+The app will be ready with:
+  ✅ Landing page
+  ✅ New page with type selection
+  ✅ Type details form
+  ✅ Old records page
+  ✅ SQLite database
+  ✅ Full RTL Arabic support
+
+Enjoy! 🎉
+
+═══════════════════════════════════════════════════════════════════════════════
